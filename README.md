@@ -1,3 +1,5 @@
+<img src="images/neteclogo (2).png" alt="logo" width="300"/>
+
 # COPILOT CHAT EN GEOLOGÍA
 
 Este seminario especializado transforma el análisis geológico tradicional mediante el uso de IA generativa para el procesamiento de secuencias programadas y datos de campo. El programa se enfoca en la interpretación automatizada de informes litológicos, la correlación de datos de subsuelo y la creación de un Agente Geológico personalizado que actúa como un experto en normatividad y estándares técnicos de la industria.
@@ -32,8 +34,15 @@ Este seminario especializado transforma el análisis geológico tradicional medi
   - Descripción: Aplicación de Copilot para convertir datos tabulares en descripciones geológicas, generar alertas de riesgo, evaluar escenarios predictivos asociados a modelos de trituración según la formación geológica y elaborar presentaciones técnicas para comités.
   - Duración estimada: 70 min
 
-## Flujo de colaboración
 
-- Trabajar en `changes_course`.
-- Crear Pull Request hacia `main`.
-- Merge por `Squash and merge`.
+-------------------------------------------------------------------------------------------------------------------------------------
+
+## 📬 **Contacto y más información**
+
+
+Si tienes alguna pregunta o necesitas más detalles, no dudes en [contactarnos](mailto:soporte@netec.com). También puedes encontrar más recursos en nuestra [página](https://netec.com).
+
+
+---
+
+¡Gracias por visitar nuestra plataforma! No olvides revisar todos los laboratorios y comenzar tu viaje de aprendizaje hoy mismo.
