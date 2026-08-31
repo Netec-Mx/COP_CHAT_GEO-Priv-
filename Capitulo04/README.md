@@ -1,740 +1,379 @@
----LAB_START---
-LAB_ID: 04-00-01
----MARKDOWN---
-# Uso de Copilot para transformar datos tabulares en descripciones para mapas o perfiles. Generación de alertas de riesgo geológico, evaluación predictiva de escenarios de fallas en modelos de trituración según tipos de formación, y preparación de presentaciones técnicas para comités.
+# Guía de laboratorio: Uso de Copilot para transformar datostabulares en descripciones para mapas o perfiles. Generación de alertas de riesgo geológico, evaluación predictiva de escenarios de fallas en modelos de trituración según tipos de formación, y preparación de presentaciones técnicas para comités.
 
-## Metadatos
+## Objetivo de la práctica
 
-| Campo | Detalle |
-|---|---|
-| **Duración estimada** | 70 minutos |
-| **Complejidad** | Media |
-| **Nivel Bloom** | Aplicar |
-| **Módulo / Práctica** | Módulo 4 — Práctica de Cierre Integradora |
-| **Modalidad** | Individual con revisión grupal al final de cada bloque |
-| **Versión del documento** | 1.0 |
+Al final de la actividad, serás capaz de aplicar Microsoft Copilot Chat para transformar datos tabulares geológicos crudos en descripciones narrativas estructuradas aptas para mapas geológicos y perfiles estratigráficos interpretados.
 
----
+## Objetivo Visual
 
-## Descripción General
+![lab4_objetivo](../images/lab4_objetivo.png)
 
-Esta práctica de cierre integra todas las competencias desarrolladas durante el curso en un flujo de trabajo geológico completo de mayor complejidad. Partiendo de un dataset tabular geológico y geotécnico ficticio pero realista, los participantes utilizarán Microsoft Copilot Chat para transformar datos crudos en descripciones narrativas de facies, generar un sistema de alertas de riesgo categorizadas, explorar escenarios conceptuales de falla en equipos de trituración según el tipo de formación, y finalmente consolidar todos los productos en una presentación técnica ejecutiva de 8 a 10 diapositivas lista para presentar ante un comité técnico. La práctica se organiza en cuatro bloques temáticos interconectados de creciente complejidad comunicativa y analítica.
+## Duración aproximada
 
-> ⚠️ **Aviso de confidencialidad:** Durante toda la práctica utilice **únicamente** los datasets de muestra proporcionados por el instructor. **No cargue datos geológicos reales, confidenciales o propietarios de su empresa en Copilot Chat.**
+- 50 minutos.
 
-> 💡 **Variabilidad de respuestas:** Copilot Chat puede generar respuestas diferentes en distintas sesiones para el mismo prompt. Esto es normal e inherente a los modelos de lenguaje. Si su respuesta difiere de los ejemplos mostrados, evalúe el contenido técnico, no la redacción exacta.
+## Instrucciones
 
----
+### Tarea 1 — Generar y priorizar alertas de riesgo geológico con Copilot en Excel
 
-## Objetivos de Aprendizaje
+Paso 1. Abrir `P4_02_Riesgos_y_Trituracion.xlsx` en Excel. En la parte inferior del libro, seleccionar la hoja `Riesgos`. Hacer clic dentro de cualquier celda que contenga datos. Si los datos todavía no están convertidos en tabla: presionar **Ctrl + T**, comprobar que Excel haya seleccionado todo el rango, activar **La tabla tiene encabezados** y seleccionar **Aceptar**. Ir a **Diseño de tabla** y cambiar el nombre de la tabla por `tbl_Riesgos`. Esto facilita que Copilot identifique correctamente el conjunto de información.
 
-Al finalizar esta práctica, el participante será capaz de:
+![lab4_1](../images/lab4_1.png)
 
-- [ ] Aplicar Microsoft Copilot Chat para transformar datos tabulares geológicos crudos en descripciones narrativas estructuradas aptas para mapas geológicos y perfiles estratigráficos interpretados.
-- [ ] Utilizar Copilot Chat para generar un sistema de alertas de riesgo geológico categorizadas (bajo / medio / alto / crítico) con justificación técnica por zona identificada.
-- [ ] Aplicar Copilot Chat para realizar una evaluación predictiva conceptual de escenarios de falla en modelos de trituración según los tipos de formación geológica procesados, comprendiendo las limitaciones de la IA en este contexto.
-- [ ] Crear con asistencia de Copilot Chat una presentación técnica ejecutiva para comité, integrando perfiles geológicos, alertas de riesgo y evaluaciones de escenarios en un formato profesional y comunicativamente efectivo.
+Paso 2. Abrir **Copilot en Excel** y pedir que comprenda la estructura antes de generar alertas:
 
----
+```text
+Analiza únicamente la tabla tbl_Riesgos de este libro.
 
-## Prerrequisitos
+Antes de interpretar los riesgos, identifica las columnas disponibles y explícame qué representa cada una.
 
-### Conocimientos previos
+Comprueba especialmente si existen las columnas: id_riesgo, fecha, sector, tipo_riesgo, probabilidad, impacto_1_5, criticidad, latitud, longitud, evidencia, medida_control.
 
-| Área | Nivel requerido |
-|---|---|
-| Uso de Microsoft Copilot Chat (interfaz web) | Básico-intermedio (Prácticas 1 y 2 completadas) |
-| Geología aplicada a minería: RQD, clasificación geomecánica, resistencia de roca | Básico |
-| Procesos de trituración en minería: tipos de trituradores, relación con dureza del mineral | Deseable (no excluyente) |
-| Microsoft Excel: apertura, visualización y edición básica de hojas de cálculo | Básico |
-| Microsoft PowerPoint: creación y edición de diapositivas | Básico |
+Indica también: valores vacíos; columnas con tipos de datos incorrectos; probabilidades fuera del rango 0 a 1; impactos fuera del rango esperado; registros duplicados por id_riesgo.
 
-### Acceso y materiales
+No corrijas todavía los datos. Primero muéstrame los problemas encontrados.
+```
 
-| Recurso | Estado requerido |
-|---|---|
-| Cuenta corporativa Microsoft 365 con Copilot Chat empresarial habilitado | ✅ Verificado por TI antes de la sesión |
-| Archivo **`Lab04_Dataset_Geologico.xlsx`** (descargado desde OneDrive/SharePoint del curso) | ✅ Disponible localmente o en OneDrive |
-| Archivo **`Lab04_Plantilla_Presentacion.pptx`** (plantilla corporativa) | ✅ Disponible localmente o en OneDrive |
-| Microsoft Edge 120+ o Chrome 120+ | ✅ Instalado y actualizado |
-| Microsoft Excel y PowerPoint (Microsoft 365, versión 2301 o superior) | ✅ Instalados |
+Paso 3. Seleccionar la hoja `Criterios` y pedir a Copilot verificar las reglas que se utilizarán:
 
----
+```text
+Analiza la hoja Criterios y enumera las reglas disponibles para clasificar alertas y riesgos.
 
-## Entorno de Laboratorio
+No inventes ningún umbral que no esté escrito en esta hoja.
 
-### Hardware mínimo recomendado
+Devuelve una tabla con: criterio; valor o rango; nivel asociado; acción recomendada; observaciones.
+```
 
-| Componente | Mínimo | Recomendado |
-|---|---|---|
-| Procesador | Intel Core i5 8ª gen / AMD Ryzen 5 | Intel Core i7 / AMD Ryzen 7 |
-| Memoria RAM | 8 GB | 16 GB |
-| Almacenamiento libre | 2 GB | 5 GB |
-| Resolución de pantalla | 1366 × 768 px | 1920 × 1080 px |
-| Conexión a internet | 10 Mbps | 25 Mbps o superior |
+Paso 4. Regresar a la hoja `Riesgos`. La criticidad geológica se determinará a partir de Probabilidad × Impacto. Pedir a Copilot en Excel:
 
-### Software requerido
+```text
+Comprueba si la columna criticidad corresponde en cada fila a: probabilidad × impacto_1_5.
 
-| Aplicación | Versión mínima | Uso en esta práctica |
-|---|---|---|
-| Microsoft Copilot Chat (empresarial) | Vigente (M365 corporativo) | Todos los bloques |
-| Microsoft Excel | M365 v2301+ | Visualización del dataset tabular |
-| Microsoft PowerPoint | M365 v2301+ | Construcción de la presentación |
-| Microsoft Edge / Chrome | 120+ | Acceso a Copilot Chat web |
-| OneDrive / SharePoint | Vigente | Acceso a archivos de práctica |
+Identifica únicamente las filas donde el resultado almacenado sea diferente del cálculo.
 
-### Configuración inicial (antes de comenzar)
+Devuelve: id_riesgo; probabilidad; impacto; criticidad almacenada; criticidad calculada; diferencia.
+```
 
-Ejecute los siguientes pasos de configuración una sola vez al inicio de la sesión:
+Si Copilot detecta errores, pedir:
 
-1. Abra su navegador (Edge o Chrome) y navegue a [https://m365.cloud.microsoft/chat](https://m365.cloud.microsoft/chat). Inicie sesión con su cuenta corporativa Microsoft 365.
-2. Verifique que la interfaz muestre el indicador **"Trabajo"** o **"Work"** en la parte superior, confirmando que está en la versión empresarial con protección de datos.
-3. Descargue desde la carpeta compartida de OneDrive/SharePoint del curso los archivos:
-   - `Lab04_Dataset_Geologico.xlsx`
-   - `Lab04_Plantilla_Presentacion.pptx`
-4. Guarde ambos archivos en una carpeta local de fácil acceso, por ejemplo: `C:\Labs\Lab04\` o `~/Labs/Lab04/`.
-5. Abra `Lab04_Dataset_Geologico.xlsx` en Microsoft Excel para familiarizarse con su estructura antes de comenzar.
-6. Cree una nueva conversación en Copilot Chat haciendo clic en **"Nueva conversación"** (o el ícono de lápiz/papel). Mantenga esta pestaña abierta durante toda la práctica.
+```text
+Corrige únicamente los valores de la columna criticidad que no coincidan con probabilidad × impacto_1_5. No modifiques las demás columnas.
+```
 
-> 📋 **Nota del instructor:** El archivo `Lab04_Dataset_Geologico.xlsx` debe contener las dos hojas descritas en esta práctica: `Datos_Litologicos` y `Datos_Geotecnicos`. Los datos deben ser ficticios pero geológicamente consistentes. Consulte el Anexo de Materiales del curso para la especificación completa del dataset.
+Paso 5. En la misma hoja de `Riesgos`, ordenar manualmente los riesgos para comprobar a Copilot. Hacer clic en una celda de `tbl_Riesgos`, ir a **Datos → Filtro**. En la columna `criticidad`, hacer clic en la flecha del encabezado y seleccionar **Ordenar de mayor a menor**.
 
----
+Paso 6. Generar el Top 3 con Copilot en Excel con el siguiente prompt:
 
-## Procedimiento Paso a Paso
+```text
+Analiza tbl_Riesgos utilizando exclusivamente las reglas de la hoja Criterios.
 
-La práctica se divide en **cuatro bloques temáticos**. Trabaje los bloques en orden secuencial, ya que cada uno genera insumos para el siguiente.
+Ordena los riesgos de mayor a menor prioridad.
+
+Selecciona los tres riesgos que deberían elevarse al comité técnico.
+
+Para cada uno muestra: posición; id_riesgo; fecha; sector; tipo_riesgo; probabilidad; impacto; criticidad; nivel; evidencia disponible; medida de control existente; razón por la cual fue priorizado.
+
+No inventes medidas de control. Si la evidencia es insuficiente, indícalo expresamente.
+```
+
+Paso 7. Generar las alertas narrativas mediante Microsoft 365 Copilot Chat iniciando una conversación nueva y adjuntar `P4_02_Riesgos_y_Trituracion.xlsx` y `P4_03_Contexto_Geologico.docx`. Pedir primero la revisión de las fuentes:
+
+```text
+Trabajaremos con dos archivos:
+1. P4_02_Riesgos_y_Trituracion.xlsx
+2. P4_03_Contexto_Geologico.docx
+
+Primero revisa la hoja Riesgos, la hoja Criterios y la sección de criterios de riesgos del documento Word.
+
+Indícame qué reglas y umbrales encuentras y de qué archivo proviene cada uno. No generes todavía las alertas.
+```
+
+Después de recibir la comprobación, utilizar:
+
+```text
+Ahora genera las tres alertas geológicas prioritarias.
+
+Cada alerta debe contener: ALERT_ID; riesgo; sector; nivel; criticidad; evidencia; posible consecuencia; medida de control documentada; fuente exacta; fila o identificador de origen; incertidumbres.
+
+Diferencia claramente: DATO OBSERVADO, INTERPRETACIÓN, RECOMENDACIÓN.
+
+No agregues hechos que no estén en los archivos.
+```
 
 ---
 
-### Bloque 1: Transformación de Datos Tabulares en Descripciones Narrativas de Facies (15 minutos)
+### Tarea 2 — Evaluar criticidad y fallas del sistema de trituración
 
-**Objetivo del bloque:** Convertir las filas de la tabla litológica del dataset en descripciones narrativas de facies geológicas aptas para leyendas de perfiles estratigráficos e informes de mapeo, aplicando el flujo de trabajo de transformación tabular estudiado en la Lección 4.1.
+Paso 8. Abrir `P4_02_Riesgos_y_Trituracion.xlsx`, seleccionar la hoja `Trituracion`, convertir los datos en tabla con **Ctrl + T** y denominarla `tbl_Trituracion`.
 
----
+Paso 9. Pedir a Copilot en Excel que identifique las variables:
 
-#### Paso 1.1: Revisión y comprensión del dataset litológico
+```text
+Analiza únicamente tbl_Trituracion.
 
-**Objetivo:** Familiarizarse con la estructura del dataset antes de interactuar con Copilot.
+Identifica qué columnas corresponden a: equipo, formación, litología, dureza, abrasividad, humedad, CSS, throughput, P80, vibración, temperatura, severidad, ocurrencia, detección, RPN.
 
-**Instrucciones:**
+Identifica valores vacíos, valores fuera de rango y datos que podrían impedir el cálculo del RPN. No realices aún la interpretación.
+```
 
-1. En Excel, active la hoja **`Datos_Litologicos`** del archivo `Lab04_Dataset_Geologico.xlsx`. Observe que contiene las siguientes columnas:
+Paso 10. Comprobar el cálculo de RPN con Copilot pidiendo:
 
-   | Columna | Descripción |
-   |---|---|
-   | `Prof_Top_m` | Profundidad al tope del intervalo (metros) |
-   | `Prof_Base_m` | Profundidad a la base del intervalo (metros) |
-   | `Litologia` | Tipo litológico principal (ej. SAND, SHALE, LIMESTONE, DOLOMITE) |
-   | `Estructuras_Sed` | Estructuras sedimentarias observadas |
-   | `Contenido_Fosil` | Presencia y tipo de fósiles |
-   | `Color_Munsell` | Color en notación Munsell |
-   | `GR_api_prom` | Valor promedio de Gamma Ray (API) para el intervalo |
-   | `RHOB_gcc_prom` | Densidad bulk promedio (g/cc) |
-   | `Dureza_MPa` | Dureza de la roca (MPa) |
-   | `Abrasividad_AI` | Índice de abrasividad (Cerchar Abrasivity Index) |
+```text
+Comprueba fila por fila si: RPN = severidad × ocurrencia × detección.
 
-2. Identifique cuántas filas (intervalos) contiene la hoja. El dataset de práctica tiene **10 intervalos** que van de 100 m a 200 m de profundidad.
-3. Seleccione y copie **todas las celdas de la tabla** (incluyendo encabezados). Use `Ctrl+A` dentro de la tabla y luego `Ctrl+C`.
+Muéstrame únicamente los registros donde el valor RPN almacenado no coincida con el cálculo. No modifiques todavía la tabla.
+```
 
-**Resultado esperado:** Comprensión clara de la estructura del dataset y contenido copiado en el portapapeles.
+Si existen errores:
 
-**Verificación:** Confirme que ha copiado los encabezados y las 10 filas de datos. La selección debe incluir todas las 10 columnas.
+```text
+Corrige únicamente los valores RPN incorrectos utilizando: severidad × ocurrencia × detección.
+```
 
----
+Paso 11. En el encabezado `RPN`, abrir la flecha del filtro y seleccionar **Ordenar de mayor a menor** para revisar los registros más críticos en la parte superior.
 
-#### Paso 1.2: Carga del dataset en Copilot y solicitud de descripción narrativa de facies
+Paso 12. Hacer clic en la flecha de la columna `formation`, desmarcar **Seleccionar todo** y marcar una sola formación (por ejemplo, Formación A). Pulsar **Aceptar**. Luego abrir nuevamente el filtro y seleccionar **Borrar filtro de "formation"**. Hacer el mismo ejercicio con `lithology`.
 
-**Objetivo:** Usar Copilot Chat para transformar los datos tabulares en descripciones narrativas estructuradas por intervalo.
+Paso 13. Pedir a Copilot que compare formaciones y litologías:
 
-**Instrucciones:**
+```text
+Agrupa conceptualmente los registros de tbl_Trituracion por: formation y lithology.
 
-1. Cambie a la pestaña del navegador con Copilot Chat.
-2. En el campo de entrada del chat, pegue los datos copiados del paso anterior (`Ctrl+V`). Los datos aparecerán como texto tabulado.
+Para cada grupo calcula o resume: cantidad de registros; RPN promedio; RPN máximo; throughput promedio; P80 promedio; vibración promedio; temperatura promedio.
 
-   > 💡 **Alternativa:** Si su versión de Copilot Chat permite adjuntar archivos, haga clic en el ícono de adjunto (📎) y cargue directamente el archivo `Lab04_Dataset_Geologico.xlsx`. Luego indique en el prompt que trabaje con la hoja `Datos_Litologicos`.
+Identifica qué formaciones y litologías concentran los valores más altos de RPN. No presentes correlación como causalidad.
+```
 
-3. Después de pegar los datos, escriba el siguiente prompt estructurado y presione **Enter**:
+Paso 14. Crear una tabla dinámica para comprobar los resultados: hacer clic dentro de `tbl_Trituracion`, ir a **Insertar → Tabla dinámica**, seleccionar **Nueva hoja de cálculo** y pulsar **Aceptar**. Arrastrar `formation` a **Filas**, `lithology` debajo de `formation`, `RPN`, `throughput_t_h` y `vibracion_mm_s` a **Valores**. Cambiar la configuración de campo de valor de **Suma** a **Promedio** para los tres.
 
-   ```
-   Actúa como geólogo sedimentólogo senior con experiencia en descripción de facies para 
-   informes de mapeo geológico. A continuación te proporciono una tabla de datos litológicos 
-   de 10 intervalos de perforación entre 100 m y 200 m de profundidad.
+Paso 15. Seleccionar una celda dentro de la tabla dinámica y preguntar a Copilot:
 
-   Para cada intervalo, genera una descripción narrativa de facies geológica que incluya:
-   1. Denominación de la facies (nombre descriptivo corto, máximo 5 palabras)
-   2. Descripción sedimentológica (2-3 oraciones): litología principal, estructuras sedimentarias, 
-      color y contenido fosilífero
-   3. Interpretación de ambiente deposicional (1 oración)
-   4. Propiedades mecánicas relevantes: dureza y abrasividad con su clasificación cualitativa 
-      (baja/media/alta/muy alta)
-   5. Aptitud para leyenda de perfil estratigráfico (1 oración resumen)
+```text
+Interpreta esta tabla dinámica.
 
-   Presenta los resultados en formato de lista numerada, uno por intervalo, con subtítulos claros.
-   Usa terminología geológica técnica apropiada para un informe profesional.
+Indica: qué formación tiene mayor RPN promedio; qué litología tiene mayor RPN; dónde aparece mayor vibración; qué grupos presentan menor throughput; qué combinaciones requieren revisión.
 
-   [PEGAR AQUÍ LOS DATOS DE LA TABLA]
-   ```
+Para cada hallazgo menciona el dato utilizado como evidencia.
+```
 
-   > 📝 **Nota:** Reemplace `[PEGAR AQUÍ LOS DATOS DE LA TABLA]` con los datos reales copiados de Excel, o si ya los pegó antes del prompt, reorganice el mensaje para que los datos precedan al prompt de instrucción.
+Paso 16. Abrir Microsoft 365 Copilot Chat y adjuntar `P4_02_Riesgos_y_Trituracion.xlsx`, `P4_01_Perfil_Geologico.xlsx` y `P4_03_Contexto_Geologico.docx`. Pedir la primera revisión:
 
-4. Espere la respuesta de Copilot (aproximadamente 15-30 segundos).
+```text
+Revisa los tres archivos adjuntos.
 
-**Resultado esperado:** Copilot genera 10 descripciones narrativas de facies, una por intervalo, con la estructura de 5 puntos solicitada. Las descripciones deben ser geológicamente coherentes con los valores de GR, RHOB, litología y estructuras sedimentarias del dataset.
+Localiza en P4_02_Riesgos_y_Trituracion.xlsx las formaciones y litologías presentes en la hoja Trituracion. Después busca esas mismas formaciones y litologías en P4_01_Perfil_Geologico.xlsx. Finalmente revisa si P4_03_Contexto_Geologico.docx aporta información adicional sobre ellas.
 
-**Verificación:** Revise que:
-- [ ] Cada descripción tiene los 5 componentes solicitados.
-- [ ] Las denominaciones de facies son descriptivas y coherentes (ej. "Arenisca de grano medio con laminación paralela").
-- [ ] La clasificación de dureza y abrasividad es consistente con los valores numéricos de `Dureza_MPa` y `Abrasividad_AI`.
-- [ ] El lenguaje es técnico y apropiado para un informe geológico profesional.
+Devuelve una tabla de correspondencias. No interpretes todavía el comportamiento de trituración.
+```
 
----
+Después pedir la comparación de contexto y operación:
 
-#### Paso 1.3: Refinamiento y solicitud de tabla resumen de facies
+```text
+Ahora compara el contexto geológico con los registros operacionales.
 
-**Objetivo:** Refinar las descripciones y generar una tabla resumen apta para leyenda de perfil.
+Identifica coincidencias entre: formación, litología, dureza, abrasividad, humedad, RPN, vibración, throughput, P80.
 
-**Instrucciones:**
+Para cada patrón indica: 1. evidencia; 2. archivos de origen; 3. número de registros; 4. posible interpretación; 5. nivel de confianza.
 
-1. Evalúe la respuesta del paso anterior. Si alguna descripción le parece imprecisa o inconsistente, identifíquela.
-2. Envíe el siguiente prompt de refinamiento en la **misma conversación** (no abra una nueva):
+No conviertas una asociación estadística en una causa confirmada.
+```
 
-   ```
-   Excelente trabajo. Ahora, basándote en las 10 descripciones de facies que generaste, 
-   crea una tabla resumen con las siguientes columnas:
+Paso 17. Obtener el Top 3 de alertas de trituración con el siguiente prompt:
 
-   | Intervalo (m) | Código Facies | Denominación Facies | Litología Principal | 
-   | Ambiente Deposicional | Dureza | Abrasividad | Color HEX sugerido para perfil |
+```text
+Selecciona las tres condiciones de trituración de mayor prioridad.
 
-   Para el Color HEX, sugiere un color representativo coherente con los códigos litológicos 
-   estándar (arenisca = dorado #DAA520, lutita = gris #808080, caliza = azul #1E90FF, 
-   dolomía = verde #8FBC8F). Si hay variantes mixtas, propón un color intermedio justificado.
+Prioriza utilizando: RPN; driver principal; vibración; temperatura; impacto operacional; contexto geológico.
 
-   Presenta la tabla en formato Markdown.
-   ```
-
-3. Copie la tabla generada por Copilot y péguela en un archivo de texto (Notepad o Notepad++) guardado como `Lab04_Tabla_Facies.txt` en su carpeta de trabajo.
-
-**Resultado esperado:** Una tabla Markdown de 10 filas con los 8 campos solicitados, incluyendo códigos de color HEX coherentes con la paleta litológica estándar de la Lección 4.1.
-
-**Verificación:**
-- [ ] La tabla tiene exactamente 10 filas de datos más la fila de encabezado.
-- [ ] Los colores HEX son coherentes con la paleta estándar estudiada.
-- [ ] El archivo `Lab04_Tabla_Facies.txt` está guardado correctamente.
+Devuelve: ALERT_ID, Equipo, Formación, Litología, RPN, Nivel, Driver principal, Parámetro anómalo, Evidencia, Acción propuesta, Fuente, Incertidumbre.
+```
 
 ---
 
-### Bloque 2: Generación de Alertas de Riesgo Geológico (15 minutos)
+### Tarea 3 — Construir un escenario What-If de trituración con Copilot y Excel
 
-**Objetivo del bloque:** Utilizar Copilot Chat para analizar parámetros geotécnicos del dataset y generar un sistema de alertas de riesgo categorizadas con justificación técnica y recomendaciones de mitigación.
+Paso 18. En la hoja `Trituracion` de `P4_02_Riesgos_y_Trituracion.xlsx`, utilizar el filtro de `equipo` para seleccionar únicamente el equipo de interés (por ejemplo: Chancador Primario 1).
 
----
+Paso 19. En la columna `RPN`, abrir el filtro y seleccionar **Ordenar de mayor a menor**. Anotar los datos (formation, lithology, CSS actual, throughput, P80, vibración, RPN) del primer registro visible.
 
-#### Paso 2.1: Carga de datos geotécnicos y solicitud de sistema de alertas
+![lab4_2](../images/lab4_2.png)
 
-**Objetivo:** Generar alertas de riesgo categorizadas basadas en parámetros geotécnicos del dataset.
+Paso 20. Pedir a Copilot en Excel que busque evidencia histórica antes de simular:
 
-**Instrucciones:**
+```text
+Para el registro visible de mayor RPN, identifica: equipo; formación; litología; CSS; throughput; P80; vibración; RPN.
 
-1. Regrese a Excel y active la hoja **`Datos_Geotecnicos`** del archivo `Lab04_Dataset_Geologico.xlsx`. Esta hoja contiene:
+Ahora busca dentro de tbl_Trituracion otros registros del mismo equipo y, preferentemente, de la misma formación y litología. Compara los casos donde el CSS sea diferente.
 
-   | Columna | Descripción |
-   |---|---|
-   | `Prof_Top_m` | Profundidad al tope del intervalo (metros) |
-   | `Prof_Base_m` | Profundidad a la base del intervalo (metros) |
-   | `Litologia` | Tipo litológico |
-   | `RQD_pct` | Rock Quality Designation (%) |
-   | `Indice_Fracturacion` | Número de fracturas por metro |
-   | `Presencia_Falla` | Indicador de falla (Sí/No) |
-   | `Presion_Poros_MPa` | Presión de poros estimada (MPa) |
-   | `UCS_MPa` | Resistencia a la compresión uniaxial (MPa) |
-   | `Cohesion_MPa` | Cohesión del material (MPa) |
-   | `Angulo_Friccion_deg` | Ángulo de fricción interna (grados) |
+Devuelve una tabla con los registros comparables. No hagas todavía una predicción.
+```
 
-2. Copie todos los datos de esta hoja (encabezados + 10 filas).
-3. En Copilot Chat, **continúe en la misma conversación** del Bloque 1 y envíe el siguiente prompt:
+Paso 21. Verificar si existen datos suficientes con el siguiente prompt:
 
-   ```
-   Ahora trabajaremos con los datos geotécnicos del mismo sondaje. A continuación te 
-   proporciono la tabla de parámetros geotécnicos para los mismos 10 intervalos.
+```text
+Con los registros comparables encontrados, determina si existe información suficiente para estimar el efecto de aumentar el CSS en 5 mm.
 
-   Actúa como ingeniero geotécnico especialista en minería subterránea y a cielo abierto.
-   Analiza los datos y genera un sistema de alertas de riesgo geológico-geotécnico con 
-   las siguientes especificaciones:
+Evalúa: cantidad de observaciones; rango de CSS disponible; presencia de registros próximos a CSS actual +5 mm; consistencia de formation y lithology; variabilidad de throughput; variabilidad de P80; variabilidad de RPN.
 
-   CATEGORÍAS DE ALERTA:
-   - 🟢 BAJO: Condiciones estables, operación normal sin restricciones especiales
-   - 🟡 MEDIO: Condiciones moderadas, monitoreo recomendado y medidas preventivas
-   - 🟠 ALTO: Condiciones adversas, intervención técnica requerida antes de operación
-   - 🔴 CRÍTICO: Condiciones de riesgo severo, suspensión de operaciones y evaluación inmediata
+Clasifica la evidencia como: SUFICIENTE, LIMITADA, o INSUFICIENTE. Explica el motivo.
+```
 
-   Para cada intervalo genera:
-   1. Nivel de alerta asignado con justificación técnica (menciona los parámetros específicos 
-      que determinaron la clasificación, con sus valores)
-   2. Principales mecanismos de falla identificados (máximo 3)
-   3. Recomendaciones técnicas de mitigación (mínimo 2 acciones concretas)
-   4. Parámetro crítico dominante (el factor de mayor peso en la decisión)
+Paso 22. En una nueva hoja de Excel crear la tabla `Escenario_WhatIf` con las columnas: Variable, Actual, Escenario CSS +5 mm, Diferencia, Confianza, y las filas CSS, Throughput, P80, Vibración, RPN. Pedir a Copilot completarla:
 
-   Al final, genera un resumen ejecutivo de 3-4 oraciones sobre el estado general del 
-   macizo rocoso en el intervalo 100-200 m y las zonas de mayor atención prioritaria.
+```text
+Ayúdame a completar la tabla Escenario_WhatIf.
 
-   [PEGAR AQUÍ LOS DATOS GEOTÉCNICOS]
-   ```
+El cambio a evaluar es: CSS escenario = CSS actual + 5 mm.
 
-4. Espere la respuesta completa de Copilot.
+Para throughput, P80, vibración y RPN utiliza únicamente evidencia histórica comparable de tbl_Trituracion. Si los datos permiten una estimación numérica razonable, calcula el valor e indica el método. Si los datos no son suficientes, escribe: "Sin evidencia suficiente para estimación cuantitativa". No inventes porcentajes.
+```
 
-**Resultado esperado:** Un sistema de alertas completo con los 4 componentes por intervalo y el resumen ejecutivo final. Las alertas deben ser coherentes con los valores de RQD (RQD < 25% = muy pobre calidad), índice de fracturación, presencia de fallas y UCS.
+Paso 23. Si Copilot propone una fórmula predictiva, preguntar:
 
-**Verificación:**
-- [ ] Se generaron alertas para los 10 intervalos.
-- [ ] Los niveles de alerta son coherentes con los valores del dataset (ej. RQD < 25% + presencia de falla = alerta ALTO o CRÍTICO).
-- [ ] Cada alerta incluye justificación con valores numéricos específicos del dataset.
-- [ ] Las recomendaciones son técnicamente aplicables (no genéricas).
+```text
+Explica la fórmula que propones. Indica: variable independiente; variable dependiente; registros utilizados; limitaciones; supuestos; por qué consideras que puede utilizarse para un escenario didáctico. No la presentes como modelo predictivo validado.
+```
 
----
+Paso 24. Seleccionar la tabla `Escenario_WhatIf` y las filas numéricas clave. Ir a **Insertar → Gráfico de columnas → Columnas agrupadas** para comparar "Actual vs. CSS +5 mm" y nombrar el gráfico **Escenario What-If — CSS +5 mm**.
 
-#### Paso 2.2: Solicitud de tabla consolidada de alertas
+Paso 25. Pedir a Copilot en Excel que interprete el escenario:
 
-**Objetivo:** Obtener una tabla consolidada de alertas para incorporar en la presentación técnica.
+```text
+Interpreta el escenario CSS +5 mm.
 
-**Instrucciones:**
+Separa la respuesta en: 1. Valores observados actuales. 2. Estimaciones del escenario. 3. Posible impacto operacional. 4. Incertidumbres. 5. Riesgos residuales.
 
-1. En la misma conversación, envíe el siguiente prompt:
+Finaliza con una de estas decisiones: PROBAR, NO PROBAR, o REQUIERE MÁS DATOS. Justifica la decisión exclusivamente con información del archivo.
+```
 
-   ```
-   Perfecto. Ahora consolida todas las alertas en una tabla resumen ejecutiva con 
-   las siguientes columnas:
+Paso 26. Adjuntar en Copilot Chat `P4_02_Riesgos_y_Trituracion.xlsx` y `P4_03_Contexto_Geologico.docx` para validar el escenario. Primero solicitar:
 
-   | Intervalo (m) | Litología | Nivel Alerta | Parámetro Crítico | 
-   | Mecanismo Falla Principal | Acción Prioritaria |
+```text
+Revisa la hoja Trituracion, la hoja Escenario_WhatIf y el documento de contexto. Comprueba primero que los valores utilizados como situación actual existan realmente en Trituracion. Comprueba después qué valores del escenario son observados, calculados o estimados. No emitas todavía una recomendación.
+```
 
-   Ordena la tabla de mayor a menor criticidad (primero los CRÍTICOS, luego ALTOS, 
-   luego MEDIOS, luego BAJOS). Presenta en formato Markdown.
+Después auditar el escenario:
 
-   Adicionalmente, indica cuántos intervalos caen en cada categoría de alerta 
-   (conteo por categoría).
-   ```
-
-2. Copie la tabla y el conteo generados. Guárdelos en un nuevo archivo `Lab04_Alertas_Riesgo.txt`.
-
-**Resultado esperado:** Tabla ordenada por criticidad con los 6 campos solicitados y conteo por categoría.
-
-**Verificación:**
-- [ ] La tabla está ordenada correctamente por nivel de criticidad.
-- [ ] El conteo por categoría suma exactamente 10 intervalos.
-- [ ] El archivo `Lab04_Alertas_Riesgo.txt` está guardado.
+```text
+Ahora audita el escenario CSS +5 mm. Identifica cualquier afirmación que no esté respaldada por datos. Devuelve: conclusión, evidencia, supuestos, incertidumbre, recomendación binaria, datos adicionales necesarios.
+```
 
 ---
 
-### Bloque 3: Evaluación Predictiva Conceptual de Escenarios de Falla en Trituración (15 minutos)
+### Tarea 4 — Crear el informe técnico con Copilot en Word
 
-**Objetivo del bloque:** Explorar con Copilot Chat escenarios conceptuales de falla en equipos de trituración según las características litológicas y mecánicas identificadas, comprendiendo las limitaciones de este análisis como aproximación conceptual asistida por IA y no como simulación física.
+Paso 27. Abrir Word, seleccionar **Documento en blanco** y guardarlo inmediatamente como `P4_Informe_Tecnico.docx`.
 
-> ⚠️ **Advertencia metodológica importante:** El análisis de este bloque es una **evaluación conceptual cualitativa** basada en relaciones conocidas entre propiedades de roca y comportamiento de equipos de trituración. **No reemplaza** modelos de simulación física, ensayos de laboratorio (Bond Work Index, pruebas de desgaste) ni la experiencia de ingenieros de proceso especializados. Copilot Chat no tiene acceso a parámetros operacionales reales de sus equipos. Utilice estos resultados únicamente como punto de partida para discusión técnica.
+Paso 28. Desde los archivos de Excel de origen, copiar y pegar en el documento de Word las tablas y gráficos relevantes: tabla de intervalos, gráfico del perfil geológico, Top 3 de riesgos, Top 3 de alertas de trituración, gráfico y tabla de `Escenario_WhatIf`.
 
----
+Paso 29. Abrir Copilot en Word y pedir la creación de la estructura:
 
-#### Paso 3.1: Contextualización del escenario de trituración
+```text
+Utilizando exclusivamente el contenido que ya está incluido en este documento, crea la estructura de un informe técnico con las siguientes secciones: 1. Objetivo, 2. Contexto geológico, 3. Perfil geológico interpretado, 4. Riesgos geológicos, 5. Criticidad del sistema de trituración, 6. Escenario What-If, 7. Riesgos residuales, 8. Recomendaciones, 9. Conclusiones.
 
-**Objetivo:** Establecer el contexto operacional para que Copilot genere evaluaciones conceptualmente relevantes.
+No inventes información que no aparezca en las tablas o gráficos.
+```
 
-**Instrucciones:**
+Paso 30. Seleccionar la tabla y el gráfico del perfil geológico y pedir la redacción:
 
-1. En la misma conversación de Copilot Chat, envíe el siguiente prompt de contextualización:
+```text
+Redacta la sección "Perfil geológico interpretado" utilizando únicamente esta tabla y este gráfico. Diferencia: datos observados, contactos identificados, interpretaciones, incertidumbres. No agregues litologías ni formaciones inexistentes.
+```
 
-   ```
-   Cambiamos de enfoque. Ahora trabajaremos en la evaluación conceptual de riesgo 
-   operacional para equipos de trituración.
+Paso 31. Seleccionar el Top 3 de riesgos y pedir la redacción:
 
-   CONTEXTO OPERACIONAL:
-   - Operación: Mina a cielo abierto con planta de procesamiento mineral
-   - Equipos de trituración: Triturador primario de mandíbulas (jaw crusher), 
-     triturador secundario cónico (cone crusher), triturador terciario de impacto (VSI)
-   - El material a procesar proviene de los 10 intervalos litológicos ya analizados
-   - Los equipos operan en secuencia: el material de todos los intervalos se mezcla 
-     en proporciones variables durante la operación
+```text
+Redacta la sección "Riesgos geológicos". Para cada alerta incluye: ID, riesgo, nivel, evidencia, posible impacto, control existente. Ordena la sección de mayor a menor prioridad y conserva los identificadores para garantizar trazabilidad.
+```
 
-   Con base en los datos de litología, dureza (MPa), abrasividad (Índice Cerchar) 
-   y las descripciones de facies que ya generamos, realiza una evaluación conceptual 
-   del riesgo operacional para los equipos de trituración.
+Paso 32. Seleccionar la tabla del Top 3 de trituración y pedir la redacción:
 
-   Para cada tipo de triturador, identifica:
-   1. Los 3 intervalos litológicos que representan mayor riesgo para ese equipo específico
-   2. El escenario de falla conceptual más probable (desgaste acelerado de piezas, 
-      bloqueo por material arcilloso, sobrecarga por material muy duro, fragmentación 
-      irregular, etc.)
-   3. Indicadores de alerta temprana que el operador debería monitorear
-   4. Recomendación conceptual de ajuste operacional o mantenimiento preventivo
+```text
+Redacta la sección "Criticidad del sistema de trituración". Explica: cuáles son las tres alertas principales, sus RPN, drivers, formación, litología y parámetros operacionales relevantes. No presentes asociaciones entre geología y fallas como causalidad confirmada.
+```
 
-   Recuerda indicar explícitamente que esta es una evaluación conceptual cualitativa 
-   y no un modelo de simulación física.
-   ```
+Paso 33. Seleccionar la tabla `Escenario_WhatIf` y el gráfico, y pedir la redacción:
 
-2. Espere la respuesta completa.
+```text
+Redacta la sección "Escenario What-If CSS +5 mm". Incluye: situación actual, modificación analizada, impacto estimado sobre throughput, impacto estimado sobre P80, impacto sobre RPN, incertidumbres y recomendación. Identifica expresamente qué cifras son observadas y cuáles estimadas.
+```
 
-**Resultado esperado:** Evaluación conceptual para los tres tipos de trituradores, con los 4 componentes por equipo. Copilot debe incluir la advertencia metodológica sobre el carácter conceptual del análisis.
+Paso 34. Cuando el informe esté completo, pedir la generación del resumen:
 
-**Verificación:**
-- [ ] Se generó evaluación para los tres tipos de trituradores (mandíbulas, cónico, VSI).
-- [ ] Los intervalos identificados como de mayor riesgo son coherentes con los valores de dureza y abrasividad del dataset (mayor dureza y abrasividad = mayor riesgo para piezas de desgaste).
-- [ ] Copilot incluye alguna mención al carácter conceptual/cualitativo del análisis.
-- [ ] Los escenarios de falla son técnicamente plausibles para cada tipo de equipo.
+```text
+Genera un resumen ejecutivo de máximo 250 palabras. Debe incluir: principal hallazgo geológico, Top 3 de riesgos, alerta de trituración más importante, resultado del What-If y recomendación para el comité. Utiliza únicamente el contenido del documento.
+```
 
----
+Paso 35. Hacer una revisión crítica del documento completo con Copilot:
 
-#### Paso 3.2: Matriz de criticidad litología-equipo
+```text
+Actúa como revisor técnico del documento. Identifica: afirmaciones sin evidencia, cifras sin fuente, contradicciones, conclusiones demasiado fuertes, interpretaciones presentadas como hechos, y tablas que no coincidan con el texto.
 
-**Objetivo:** Generar una matriz de criticidad que relacione tipos de formación con equipos de trituración para uso en la presentación.
+Devuelve una lista de correcciones propuestas. No reescribas todavía el documento.
+```
 
-**Instrucciones:**
-
-1. En la misma conversación, envíe el siguiente prompt:
-
-   ```
-   Basándote en el análisis anterior, genera una Matriz de Criticidad Litología-Equipo 
-   en formato de tabla Markdown con la siguiente estructura:
-
-   - Filas: Los 4 tipos litológicos principales presentes en el dataset 
-     (SAND, SHALE, LIMESTONE, DOLOMITE)
-   - Columnas: Triturador de Mandíbulas | Triturador Cónico | Triturador VSI
-   - Contenido de cada celda: Nivel de criticidad (BAJA / MEDIA / ALTA / MUY ALTA) 
-     + escenario de falla dominante en 3-5 palabras
-
-   Después de la tabla, agrega una sección de "Recomendaciones Operacionales Prioritarias" 
-   con las 5 acciones más importantes para reducir el riesgo de falla en los equipos, 
-   ordenadas de mayor a menor impacto esperado.
-
-   Incluye al inicio de tu respuesta un párrafo breve recordando las limitaciones 
-   metodológicas de esta evaluación conceptual.
-   ```
-
-2. Copie la matriz y las recomendaciones. Guárdelas en `Lab04_Matriz_Trituración.txt`.
-
-**Resultado esperado:** Matriz de 4×3 con niveles de criticidad y escenarios de falla, más 5 recomendaciones operacionales priorizadas, precedidas por el párrafo de limitaciones metodológicas.
-
-**Verificación:**
-- [ ] La matriz tiene 4 filas (litologías) × 3 columnas (equipos) correctamente estructurada.
-- [ ] Los niveles de criticidad son coherentes con las propiedades mecánicas conocidas de cada litología (ej. dolomía dura = criticidad ALTA/MUY ALTA para trituradores).
-- [ ] El archivo `Lab04_Matriz_Trituración.txt` está guardado.
+Aplicar únicamente las correcciones que puedan comprobarse.
 
 ---
 
-### Bloque 4: Preparación de Presentación Técnica para Comité (20 minutos)
+### Tarea 5 — Preparar la presentación del comité con Copilot en PowerPoint
 
-**Objetivo del bloque:** Integrar todos los productos de los bloques anteriores en una presentación PowerPoint de 8 a 10 diapositivas para comité técnico, utilizando Copilot para generar el texto, mensajes clave, conclusiones y recomendaciones operacionales.
+Paso 36. Abrir la plantilla `P4_04_Plantilla_Comite.pptx` y guardar una copia como `P4_Comite_Tecnico.pptx`.
 
----
+Paso 37. En Copilot de PowerPoint indicar que la fuente principal será `P4_Informe_Tecnico.docx` y crear la presentación a partir del archivo.
 
-#### Paso 4.1: Generación del guion completo de la presentación
+Paso 38. Pedir la estructura exacta a Copilot en PowerPoint:
 
-**Objetivo:** Crear el contenido textual completo de la presentación antes de construirla en PowerPoint.
+```text
+Utiliza P4_Informe_Tecnico.docx como fuente principal. Reorganiza la presentación en exactamente seis diapositivas: 1. Contexto y objetivo, 2. Perfil geológico y hallazgos principales, 3. Top 3 de alertas geológicas, 4. Top 3 de alertas y criticidad de trituración, 5. Escenario What-If CSS +5 mm, 6. Recomendaciones, riesgos residuales y decisión solicitada.
 
-**Instrucciones:**
+Máximo cuatro mensajes principales por diapositiva. No inventes cifras. Mantén los IDs de las alertas cuando aparezcan.
+```
 
-1. En la misma conversación de Copilot Chat, envíe el siguiente prompt:
+Paso 39. Pegar el gráfico de perfil desde Excel en la diapositiva 2 y pedir:
 
-   ```
-   Ahora integraremos todo el trabajo previo en una presentación técnica ejecutiva 
-   para comité técnico de operaciones mineras.
+```text
+Resume el gráfico de la diapositiva 2 en tres mensajes técnicos. Utiliza únicamente los datos mostrados en el perfil. No conviertas inferencias geológicas en hechos confirmados.
+```
 
-   AUDIENCIA: Comité técnico compuesto por Gerente de Mina, Jefe de Geología, 
-   Jefe de Operaciones y Jefe de Mantenimiento. Nivel técnico alto pero con tiempo 
-   limitado (presentación de 15-20 minutos).
+Paso 40. Pegar la tabla del Top 3 de riesgos en la diapositiva 3 y pedir:
 
-   OBJETIVO DE LA PRESENTACIÓN: Comunicar el estado geológico-geotécnico del 
-   sondaje Zona Norte (100-200 m), las alertas de riesgo identificadas y las 
-   recomendaciones operacionales para los equipos de trituración.
+```text
+Para esta diapositiva genera un mensaje ejecutivo de una línea para cada una de las tres alertas. Cada mensaje debe conservar: ID, nivel, principal evidencia y acción requerida.
+```
 
-   Genera el guion completo de una presentación de 9 diapositivas con la 
-   siguiente estructura:
+Paso 41. Pegar la tabla de alertas de trituración en la diapositiva 4 y pedir:
 
-   DIAPOSITIVA 1 - PORTADA:
-   - Título principal de la presentación
-   - Subtítulo con alcance y fecha
-   - Área/zona geológica
+```text
+Resume esta tabla para un comité técnico. Destaca: equipo, RPN, driver principal, formación/litología relacionada y acción requerida. No elimines los valores RPN.
+```
 
-   DIAPOSITIVA 2 - AGENDA / CONTENIDO:
-   - Lista de 5-6 puntos del contenido a cubrir
+Paso 42. Pegar la tabla y gráfico de `Escenario_WhatIf` en la diapositiva 5 y pedir:
 
-   DIAPOSITIVA 3 - RESUMEN EJECUTIVO:
-   - 4-5 bullets con los hallazgos más importantes (los que el comité debe recordar)
-   - Mensaje clave de 1 oración (el "take-away" principal)
+```text
+Crea un resumen ejecutivo del escenario de esta diapositiva. Presenta únicamente: cambio evaluado, efecto esperado, beneficio potencial, principal riesgo, nivel de confianza y recomendación. Marca expresamente cualquier valor estimado.
+```
 
-   DIAPOSITIVA 4 - PERFIL LITOLÓGICO Y FACIES:
-   - Título de sección
-   - Descripción de las facies más representativas (3-4 bullets)
-   - Nota metodológica breve
+Paso 43. Para la diapositiva 6 pedir la conclusión a Copilot:
 
-   DIAPOSITIVA 5 - MAPA DE ALERTAS DE RIESGO GEOTÉCNICO:
-   - Título de sección
-   - Distribución de alertas por categoría (usar el conteo del Bloque 2)
-   - Zonas de atención prioritaria (2-3 bullets)
-   - Mensaje clave de seguridad
+```text
+Utilizando solamente las cinco diapositivas anteriores y el informe técnico, crea la diapositiva final para el comité.
 
-   DIAPOSITIVA 6 - ANÁLISIS DETALLADO DE ZONAS CRÍTICAS:
-   - Los 3 intervalos de mayor criticidad con sus parámetros clave
-   - Mecanismos de falla identificados
-   - Impacto operacional estimado
+Incluye: RECOMENDACIONES PRIORITARIAS (máximo tres), RIESGOS RESIDUALES (máximo tres), DECISIÓN SOLICITADA AL COMITÉ (una única frase), y PRÓXIMO PASO (una única acción concreta). No agregues información externa.
+```
 
-   DIAPOSITIVA 7 - EVALUACIÓN DE RIESGO EN TRITURACIÓN:
-   - Título de sección
-   - Resumen de la matriz de criticidad litología-equipo
-   - Los 2 escenarios de falla de mayor impacto
-   - Advertencia metodológica (evaluación conceptual)
+Paso 44. Utilizar Copilot para revisar toda la presentación:
 
-   DIAPOSITIVA 8 - RECOMENDACIONES OPERACIONALES:
-   - Las 5 recomendaciones prioritarias del Bloque 3 en formato de bullets ejecutivos
-   - Responsable sugerido para cada acción (Geología / Operaciones / Mantenimiento)
-   - Plazo sugerido (inmediato / corto plazo / mediano plazo)
+```text
+Revisa las seis diapositivas como si fueras un miembro del comité técnico. Identifica: datos contradictorios, alertas sin fuente, cifras que no aparecen en el informe, exceso de texto, conclusiones sin evidencia, y diapositivas que no tengan un mensaje principal claro. Devuelve las correcciones diapositiva por diapositiva.
+```
 
-   DIAPOSITIVA 9 - CONCLUSIONES Y PRÓXIMOS PASOS:
-   - 3-4 conclusiones técnicas principales
-   - 3 próximos pasos concretos con fechas tentativas
-   - Cierre con mensaje de valor del análisis geológico integrado
+Paso 45. Generar notas del presentador con Copilot para cada diapositiva:
 
-   Para cada diapositiva, indica:
-   - TÍTULO: [título de la diapositiva]
-   - CONTENIDO PRINCIPAL: [bullets o texto]
-   - NOTAS DEL PRESENTADOR: [1-3 oraciones de apoyo para el presentador]
-   - SUGERENCIA VISUAL: [qué tipo de gráfico, tabla o imagen sería ideal]
-   ```
+```text
+Genera notas del presentador para explicar esta diapositiva en aproximadamente un minuto. Las notas ventar qué muestra el visual, destacar el dato más importante, diferenciar hechos de interpretaciones, y terminar con la conclusión que debe recordar el comité.
+```
 
-2. Espere la respuesta completa. Esta puede ser extensa (5-8 minutos de lectura). Revísela con atención.
-3. Copie todo el guion generado y guárdelo en `Lab04_Guion_Presentacion.txt`.
+## Resultado Esperado
 
-**Resultado esperado:** Guion completo de 9 diapositivas con los 4 componentes por diapositiva (título, contenido, notas del presentador, sugerencia visual), integrado con los hallazgos de los bloques anteriores.
-
-**Verificación:**
-- [ ] El guion cubre las 9 diapositivas con la estructura solicitada.
-- [ ] El contenido es coherente con los análisis de los bloques 1, 2 y 3.
-- [ ] Las notas del presentador son útiles y adicionales al contenido de la diapositiva.
-- [ ] Las sugerencias visuales son específicas y realizables en PowerPoint.
-
----
-
-#### Paso 4.2: Construcción de la presentación en PowerPoint
-
-**Objetivo:** Transferir el guion generado por Copilot a la plantilla corporativa de PowerPoint.
-
-**Instrucciones:**
-
-1. Abra el archivo `Lab04_Plantilla_Presentacion.pptx` en Microsoft PowerPoint.
-2. La plantilla tiene diseño corporativo preconfigurado. Utilice las diapositivas de plantilla disponibles (portada, contenido, sección, datos, cierre).
-3. Construya las 9 diapositivas siguiendo el guion de `Lab04_Guion_Presentacion.txt`:
-   - **Diapositiva 1 (Portada):** Use el diseño de portada de la plantilla. Ingrese el título y subtítulo del guion.
-   - **Diapositivas 2-8:** Use el diseño de contenido estándar. Copie los bullets del guion en el área de contenido. Copie las notas del presentador en el panel de notas de PowerPoint (Vista → Notas).
-   - **Diapositiva 9 (Cierre):** Use el diseño de cierre de la plantilla.
-4. Para la **Diapositiva 5** (Mapa de Alertas), inserte una tabla simple de 5 filas × 3 columnas con los datos de conteo de alertas:
-
-   | Categoría | Cantidad de Intervalos | % del Total |
-   |---|---|---|
-   | 🔴 CRÍTICO | [dato del Bloque 2] | [calcular] |
-   | 🟠 ALTO | [dato del Bloque 2] | [calcular] |
-   | 🟡 MEDIO | [dato del Bloque 2] | [calcular] |
-   | 🟢 BAJO | [dato del Bloque 2] | [calcular] |
-
-5. Para la **Diapositiva 7** (Evaluación de Riesgo en Trituración), inserte la matriz de criticidad del Bloque 3 como tabla de 5 filas × 4 columnas (encabezado + 4 litologías).
-6. Guarde el archivo como `Lab04_Presentacion_Comite_[SuNombre].pptx`.
-
-**Resultado esperado:** Presentación de 9 diapositivas completa, con contenido del guion transferido correctamente, tablas de datos incluidas y notas del presentador en cada diapositiva.
-
-**Verificación:**
-- [ ] La presentación tiene exactamente 9 diapositivas.
-- [ ] Cada diapositiva tiene título, contenido y notas del presentador completados.
-- [ ] Las tablas de alertas y de criticidad están incluidas y son legibles.
-- [ ] El archivo está guardado con el nombre correcto.
-
----
-
-#### Paso 4.3: Generación del mensaje de apertura y cierre con Copilot
-
-**Objetivo:** Refinar la comunicación ejecutiva con frases de apertura y cierre de alto impacto.
-
-**Instrucciones:**
-
-1. Regrese a Copilot Chat y envíe el siguiente prompt final:
-
-   ```
-   Para cerrar la preparación de la presentación, necesito dos textos adicionales:
-
-   TEXTO 1 - APERTURA (para el presentador, antes de mostrar la Diapositiva 1):
-   Escribe un párrafo de apertura de 4-5 oraciones que:
-   - Establezca la relevancia del análisis geológico integrado para las decisiones 
-     operacionales de la mina
-   - Mencione brevemente el alcance del trabajo (sondaje Zona Norte, 100-200 m)
-   - Genere expectativa sobre los hallazgos críticos
-   - Sea apropiado para una audiencia de gerentes y jefes técnicos
-   - Tono: profesional, directo, orientado a decisiones
-
-   TEXTO 2 - CIERRE (para el presentador, después de la Diapositiva 9):
-   Escribe un párrafo de cierre de 3-4 oraciones que:
-   - Refuerce el valor del análisis geológico integrado como herramienta de gestión 
-     de riesgo operacional
-   - Invite a la discusión y preguntas del comité
-   - Destaque la disponibilidad del equipo técnico para profundizar en cualquier 
-     punto de interés
-   - Cierre con un llamado a la acción concreto (aprobación de recomendaciones, 
-     asignación de responsables, definición de cronograma)
-   ```
-
-2. Copie los dos textos generados y agréguelos como notas en las diapositivas 1 y 9 respectivamente de su presentación PowerPoint.
-3. Guarde nuevamente el archivo PowerPoint.
-
-**Resultado esperado:** Dos textos de alta calidad comunicativa para apertura y cierre de la presentación, integrados como notas del presentador en las diapositivas correspondientes.
-
-**Verificación:**
-- [ ] El texto de apertura cumple los 5 criterios especificados.
-- [ ] El texto de cierre incluye el llamado a la acción concreto.
-- [ ] Ambos textos están agregados como notas en las diapositivas 1 y 9.
-
----
-
-## Validación y Pruebas Finales
-
-Una vez completados los cuatro bloques, realice las siguientes verificaciones de calidad integral:
-
-### Lista de verificación de productos entregables
-
-| Producto | Archivo | Estado |
-|---|---|---|
-| Tabla de facies geológicas | `Lab04_Tabla_Facies.txt` | ☐ Completado |
-| Sistema de alertas de riesgo | `Lab04_Alertas_Riesgo.txt` | ☐ Completado |
-| Matriz de criticidad trituración | `Lab04_Matriz_Trituración.txt` | ☐ Completado |
-| Guion completo de presentación | `Lab04_Guion_Presentacion.txt` | ☐ Completado |
-| Presentación PowerPoint | `Lab04_Presentacion_Comite_[SuNombre].pptx` | ☐ Completado |
-
-### Prueba de coherencia interna
-
-Realice esta prueba final de coherencia cruzando los productos:
-
-1. **Prueba de coherencia litológica:** Verifique que los intervalos identificados como CRÍTICO o ALTO en el Bloque 2 correspondan a los mismos intervalos identificados como de mayor riesgo para los equipos de trituración en el Bloque 3. ¿Existe correlación lógica entre alta fracturación/fallas y mayor riesgo de bloqueo en trituradores?
-
-2. **Prueba de coherencia narrativa:** Abra su presentación PowerPoint y léala de principio a fin como si fuera el presentador. ¿El hilo narrativo es lógico? ¿Las conclusiones de la Diapositiva 9 se derivan claramente del análisis de las diapositivas 3-8?
-
-3. **Prueba de completitud técnica:** Envíe el siguiente prompt de validación a Copilot Chat:
-
-   ```
-   Actúa como revisor técnico senior. Voy a compartirte el guion de mi presentación 
-   para comité técnico. Por favor evalúa:
-   1. ¿Están presentes todos los elementos técnicos esenciales para una presentación 
-      de riesgo geológico-operacional?
-   2. ¿Hay alguna inconsistencia técnica evidente entre las secciones?
-   3. ¿Qué elemento adicional fortalecería más la presentación?
-   
-   [PEGAR AQUÍ EL CONTENIDO DE Lab04_Guion_Presentacion.txt]
-   ```
-
-4. Revise la retroalimentación de Copilot e incorpore al menos **una mejora sugerida** en su presentación PowerPoint.
-
-### Criterios de éxito de la práctica
-
-| Criterio | Indicador de logro |
-|---|---|
-| Transformación tabular efectiva | Las descripciones narrativas son geológicamente coherentes con los valores del dataset y aptas para un informe técnico profesional |
-| Sistema de alertas funcional | Las alertas están correctamente categorizadas según los parámetros geotécnicos y las recomendaciones son técnicamente aplicables |
-| Evaluación de trituración conceptual | La matriz de criticidad es coherente con las propiedades mecánicas de las litologías y se reconocen explícitamente las limitaciones metodológicas |
-| Presentación ejecutiva completa | La presentación de 9 diapositivas integra coherentemente todos los análisis previos en un formato comunicativamente efectivo para la audiencia objetivo |
-| Uso efectivo de prompts | Los prompts utilizados son estructurados, específicos y orientados a resultados técnicos concretos |
-
----
-
-## Resolución de Problemas
-
-### Problema 1: Copilot genera descripciones de facies genéricas o sin valores numéricos del dataset
-
-**Síntomas:** Las descripciones narrativas del Bloque 1 son vagas (ej. "roca de grano medio con algunas estructuras") sin mencionar los valores específicos de GR, RHOB, dureza o abrasividad del dataset. Las descripciones parecen generadas sin leer los datos reales.
-
-**Causa probable:** Los datos tabulares no fueron correctamente incluidos en el prompt, o el formato de pegado desde Excel generó texto mal estructurado que Copilot no pudo interpretar como tabla. También puede ocurrir si el prompt fue demasiado corto y no especificó explícitamente que debía usar los valores del dataset.
-
-**Solución:**
-1. Verifique que los datos están efectivamente en el mensaje enviado a Copilot. Revise el historial de la conversación y confirme que la tabla es visible y legible.
-2. Si los datos se pegaron con formato incorrecto, regrese a Excel, seleccione la tabla, cópiela, y en el chat de Copilot use la opción "Pegar como texto sin formato" (`Ctrl+Shift+V` en algunos navegadores).
-3. Reformule el prompt añadiendo una instrucción explícita: `"Para cada descripción, cita los valores numéricos exactos del dataset (GR_api_prom, RHOB_gcc_prom, Dureza_MPa, Abrasividad_AI) que justifican tu caracterización."` 
-4. Alternativamente, cargue directamente el archivo Excel usando el botón de adjunto (📎) de Copilot Chat y referencie la hoja específica en el prompt: `"Analiza la hoja 'Datos_Litologicos' del archivo adjunto..."`.
-
----
-
-### Problema 2: La presentación PowerPoint queda desorganizada al transferir el guion de Copilot
-
-**Síntomas:** Al copiar el contenido del guion al PowerPoint, el texto aparece en un solo bloque de texto sin estructura de bullets, los caracteres especiales (emojis de alerta 🟢🟡🟠🔴) no se muestran correctamente, o el contenido de una diapositiva excede el espacio disponible del diseño de la plantilla.
-
-**Causa probable:** El guion generado por Copilot está en formato Markdown o texto plano con asteriscos y guiones que no se convierten automáticamente a formato de PowerPoint. Los emojis pueden no ser compatibles con algunas fuentes corporativas. El volumen de texto por diapositiva puede superar lo visualmente recomendable para una presentación ejecutiva.
-
-**Solución:**
-1. **Para el formato de bullets:** No copie y pegue el texto directamente. Léalo del guion y reescriba manualmente los bullets en PowerPoint, usando la tecla `Tab` para crear niveles de jerarquía. Esto permite un mayor control del formato.
-2. **Para los emojis de alerta:** Reemplace los emojis por formas de PowerPoint con relleno de color (círculos de colores: rojo, naranja, amarillo, verde). Use `Insertar → Formas → Elipse` y aplique el color correspondiente. Esto es más profesional para una presentación corporativa.
-3. **Para el exceso de texto:** Solicite a Copilot que reduzca el contenido de la diapositiva problemática con el prompt: `"La diapositiva [X] tiene demasiado texto para una presentación ejecutiva. Reduce el contenido a máximo 5 bullets de no más de 12 palabras cada uno, manteniendo los puntos más importantes."` Aplique la versión reducida en PowerPoint.
-4. **Para la estructura general:** Use la vista `Esquema` de PowerPoint (`Vista → Esquema`) para pegar texto estructurado de forma más eficiente y luego cambie a vista Normal para ajustar el formato visual.
-
----
-
-## Limpieza y Cierre
-
-Al finalizar la práctica, realice las siguientes acciones de cierre:
-
-### Organización de archivos
-
-1. Verifique que todos los archivos de entregables están guardados en su carpeta de trabajo (`C:\Labs\Lab04\` o equivalente):
-   - `Lab04_Tabla_Facies.txt`
-   - `Lab04_Alertas_Riesgo.txt`
-   - `Lab04_Matriz_Trituración.txt`
-   - `Lab04_Guion_Presentacion.txt`
-   - `Lab04_Presentacion_Comite_[SuNombre].pptx`
-
-2. Suba la carpeta completa a su espacio personal de OneDrive/SharePoint del curso para respaldo y revisión del instructor:
-   - Abra OneDrive en el navegador o el cliente de escritorio.
-   - Cargue la carpeta `Lab04` completa al directorio `Cursos/Copilot_Geologia/Practicas/Lab04/`.
-
-3. Si el instructor solicitó compartir la presentación para revisión grupal, comparta el archivo `Lab04_Presentacion_Comite_[SuNombre].pptx` con el enlace de OneDrive del curso.
-
-### Cierre de la sesión de Copilot
-
-1. La conversación de Copilot Chat de esta práctica contiene datos del dataset de muestra. No es necesario eliminarla, pero **confirme que no cargó datos reales de su empresa** durante la sesión.
-2. Si desea conservar los prompts utilizados como referencia futura, puede copiar los prompts más efectivos de esta práctica a un documento personal de "Biblioteca de Prompts Geológicos".
-3. Cierre la pestaña de Copilot Chat al finalizar.
-
-### Reflexión post-práctica (opcional, 5 minutos)
-
-Responda brevemente en su cuaderno o en un documento de texto:
-- ¿Qué bloque le resultó más desafiante y por qué?
-- ¿En qué situación de su trabajo real podría aplicar el flujo de trabajo de esta práctica?
-- ¿Qué limitaciones identificó en el uso de Copilot para análisis geológico-geotécnico?
-
----
-
-## Resumen
-
-### Lo que aprendió en esta práctica
-
-En esta práctica integradora aplicó un flujo de trabajo geológico completo asistido por Microsoft Copilot Chat, cubriendo cuatro competencias clave:
-
-| Bloque | Competencia aplicada | Producto generado |
-|---|---|---|
-| **Bloque 1** | Transformación de datos tabulares en narrativas de facies geológicas | Tabla de facies con descripciones narrativas y códigos de color |
-| **Bloque 2** | Generación de sistemas de alertas de riesgo geotécnico categorizadas | Sistema de alertas con justificación técnica y recomendaciones de mitigación |
-| **Bloque 3** | Evaluación conceptual de criticidad en equipos de trituración | Matriz de criticidad litología-equipo con escenarios de falla y limitaciones metodológicas explícitas |
-| **Bloque 4** | Preparación de presentación técnica ejecutiva para comité | Presentación PowerPoint de 9 diapositivas lista para comité técnico |
-
-### Principios clave reforzados
-
-- **Prompts estructurados producen resultados técnicos de mayor calidad:** El uso de roles, contexto, formato de salida y criterios específicos en los prompts mejora significativamente la utilidad de las respuestas de Copilot para aplicaciones geológicas profesionales.
-- **Copilot como acelerador, no como sustituto del juicio técnico:** Los resultados de Copilot requieren revisión crítica por parte del geólogo o ingeniero. La validación técnica de la coherencia entre parámetros es responsabilidad del profesional.
-- **Las limitaciones metodológicas deben comunicarse explícitamente:** Especialmente en evaluaciones de equipos y simulaciones conceptuales, es fundamental que los resultados de IA incluyan advertencias claras sobre su naturaleza cualitativa y sus limitaciones frente a modelos de simulación física.
-- **La integración de análisis en presentaciones ejecutivas es una competencia diferenciadora:** La capacidad de transformar datos técnicos complejos en comunicaciones claras para tomadores de decisión es tan valiosa como el análisis técnico mismo.
-
-### Recursos de referencia adicionales
-
-- [Documentación oficial de Microsoft Copilot Chat para empresas](https://learn.microsoft.com/es-es/copilot/microsoft-365/microsoft-365-copilot-overview)
-- [Mejores prácticas para prompts en Copilot (Microsoft)](https://adoption.microsoft.com/es-es/copilot/)
-- [Copilot en Excel: guía de inicio](https://support.microsoft.com/es-es/topic/introducción-a-microsoft-copilot-en-excel-018898f0-a795-4ee9-b07f-b419844dcfce)
-- [Copilot en PowerPoint: guía de inicio](https://support.microsoft.com/es-es/topic/introducción-a-copilot-en-powerpoint-3571b9f9-c0d1-4f67-8f4b-c9b9a7d8c2a0)
-- [Log ASCII Standard (LAS) — Wikipedia EN](https://en.wikipedia.org/wiki/Log_ASCII_Standard)
-- [Rock Quality Designation (RQD) — ISRM](https://www.isrm.net/)
-- [Cerchar Abrasivity Index — descripción técnica](https://en.wikipedia.org/wiki/Cerchar_abrasivity_index)
-- [Introducción a Copilot en Power BI](https://learn.microsoft.com/es-es/power-bi/create-reports/copilot-introduction)
-
----
-
-*Fin del Lab 04-00-01 — Práctica 4 Integradora*
-
----
-LAB_END---
+![lab4_resultado](../images/lab4_resultado.png)
